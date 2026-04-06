@@ -1,0 +1,6 @@
+secrets/
+.env
+__pycache__/
+*.pyc
+.DS_Store
+n8n/*.json

@@ -1,0 +1,97 @@
+version: '3.8'
+
+# ─────────────────────────────────────────────
+# Docker Secrets — compatible con Azure Key Vault en producción
+# ─────────────────────────────────────────────
+secrets:
+  openai_key:
+    file: ./secrets/openai_key.txt
+
+services:
+
+  # ── 1. fraud-api: punto de entrada, coordina el análisis ──
+  fraud-api:
+    build:
+      context: ./fraud-api
+    ports:
+      - "8000:8000"
+    networks:
+      - fraud-net
+    environment:
+      - ANALYZER_URL=http://fraud-analyzer:8001
+      - NOTIFIER_URL=http://fraud-notifier:8002
+    depends_on:
+      fraud-analyzer:
+        condition: service_healthy
+      fraud-notifier:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # ── 2. fraud-analyzer: LangChain + GPT-4o ──
+  fraud-analyzer:
+    build:
+      context: ./fraud-analyzer
+    networks:
+      - fraud-net
+    secrets:
+      - openai_key
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # ── 3. fraud-notifier: alertas de fraude ──
+  fraud-notifier:
+    build:
+      context: ./fraud-notifier
+    networks:
+      - fraud-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # ── 4. n8n: orquestación visual del pipeline ──
+  n8n:
+    image: n8nio/n8n:latest
+    ports:
+      - "5678:5678"
+    networks:
+      - fraud-net
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+      - WEBHOOK_URL=http://localhost:5678/
+      - GENERIC_TIMEZONE=America/Santiago
+    volumes:
+      - n8n_data:/home/node/.n8n
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+# ─────────────────────────────────────────────
+# Red interna — los servicios se comunican por nombre de contenedor
+# ─────────────────────────────────────────────
+networks:
+  fraud-net:
+    driver: bridge
+
+volumes:
+  n8n_data:
