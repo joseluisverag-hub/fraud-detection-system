@@ -3,18 +3,22 @@ fraud-api: Punto de entrada del sistema de detección de fraude.
 
 Responsabilidades:
   1. Recibir webhooks con transacciones (de clientes o de n8n)
-  2. Enviar la transacción a fraud-analyzer para obtener el score de riesgo
-  3. Si el riesgo es HIGH o CRITICAL, notificar a fraud-notifier
-  4. Devolver el resultado completo al cliente
+  2. Validar el JWT del cliente contra auth-sso antes de procesar
+  3. Enviar la transacción a fraud-analyzer para obtener el score de riesgo
+  4. Si el riesgo es HIGH o CRITICAL, notificar a fraud-notifier
+  5. Devolver el resultado completo al cliente
 """
 
-from fastapi import FastAPI, HTTPException
+import os
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
-import httpx
-import os
 
-from .models import Transaccion, RespuestaFraude, ResultadoAnalisis
+import httpx
+from fastapi import Depends, FastAPI, HTTPException, Security
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
+
+from .models import ResultadoAnalisis, RespuestaFraude, Transaccion
 
 # URLs de los microservicios internos (configuradas vía variables de entorno)
 ANALYZER_URL = os.getenv("ANALYZER_URL", "http://fraud-analyzer:8001")
@@ -22,6 +26,54 @@ NOTIFIER_URL = os.getenv("NOTIFIER_URL", "http://fraud-notifier:8002")
 
 # Niveles de riesgo que disparan una notificación automática
 NIVELES_ALERTA = {"HIGH", "CRITICAL"}
+
+# ── Configuración de JWT ─────────────────────────────────────────────────────
+ALGORITMO = "HS256"
+
+
+def _leer_jwt_secret() -> str:
+    """
+    Lee el JWT secret desde Docker Secrets.
+    Mismo secret que usa auth-sso para firmar los tokens.
+    """
+    ruta_secret = "/run/secrets/jwt_secret"
+    if os.path.exists(ruta_secret):
+        with open(ruta_secret) as archivo:
+            return archivo.read().strip()
+    # Fallback para desarrollo local
+    return os.getenv("JWT_SECRET", "dev-secret-inseguro-cambiar-en-produccion")
+
+
+JWT_SECRET = _leer_jwt_secret()
+
+# Esquema de seguridad Bearer para documentación automática en Swagger
+_bearer_scheme = HTTPBearer()
+
+
+def validar_jwt(
+    credenciales: HTTPAuthorizationCredentials = Security(_bearer_scheme),
+) -> dict:
+    """
+    Dependencia de FastAPI que valida el JWT en cada request protegido.
+
+    - Extrae el token del header Authorization: Bearer <token>
+    - Verifica firma y expiración usando el mismo secret que auth-sso
+    - Retorna los claims si el token es válido
+    - Lanza 401 si el token es inválido, expirado o ausente
+    """
+    try:
+        claims = jwt.decode(
+            credenciales.credentials,
+            JWT_SECRET,
+            algorithms=[ALGORITMO],
+        )
+        return claims
+    except JWTError as error:
+        raise HTTPException(
+            status_code=401,
+            detail=f"Token JWT inválido o expirado: {str(error)}",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
 
 @asynccontextmanager
@@ -46,18 +98,11 @@ async def health():
     return {"status": "ok", "servicio": "fraud-api", "version": "1.0.0"}
 
 
-@app.post("/analizar", response_model=RespuestaFraude, tags=["Fraude"])
-async def analizar_transaccion(transaccion: Transaccion):
+async def _ejecutar_analisis(transaccion: Transaccion, client: httpx.AsyncClient) -> RespuestaFraude:
     """
-    Analiza una transacción financiera y retorna el resultado de riesgo.
-
-    Flujo:
-      - Llama a fraud-analyzer → obtiene risk_score y recommendation
-      - Si riesgo >= HIGH → llama a fraud-notifier
-      - Retorna resultado consolidado
+    Lógica central de análisis: llama a fraud-analyzer y fraud-notifier.
+    Separada del endpoint para poder reutilizarse sin acoplar la dependencia JWT.
     """
-    client: httpx.AsyncClient = app.state.http_client
-
     # ── Paso 1: análisis de riesgo ──────────────────────────────────────────
     try:
         resp = await client.post(
@@ -105,10 +150,33 @@ async def analizar_transaccion(transaccion: Transaccion):
     )
 
 
+@app.post("/analizar", response_model=RespuestaFraude, tags=["Fraude"])
+async def analizar_transaccion(
+    transaccion: Transaccion,
+    _claims: dict = Depends(validar_jwt),  # Requiere JWT válido emitido por auth-sso
+):
+    """
+    Analiza una transacción financiera y retorna el resultado de riesgo.
+
+    Requiere header: Authorization: Bearer <token>
+    Obtener token previamente en POST http://auth-sso:8001/token
+
+    Flujo:
+      - Valida JWT (firma + expiración)
+      - Llama a fraud-analyzer → obtiene risk_score y recommendation
+      - Si riesgo >= HIGH → llama a fraud-notifier
+      - Retorna resultado consolidado
+    """
+    return await _ejecutar_analisis(transaccion, app.state.http_client)
+
+
 @app.post("/webhook/n8n", response_model=RespuestaFraude, tags=["Webhooks"])
-async def webhook_n8n(transaccion: Transaccion):
+async def webhook_n8n(
+    transaccion: Transaccion,
+    _claims: dict = Depends(validar_jwt),  # n8n también debe autenticarse con JWT
+):
     """
     Endpoint compatible con nodos HTTP Request de n8n.
-    Reutiliza la misma lógica que /analizar.
+    Requiere el mismo JWT que /analizar (configurar en el nodo HTTP de n8n).
     """
-    return await analizar_transaccion(transaccion)
+    return await _ejecutar_analisis(transaccion, app.state.http_client)

@@ -6,10 +6,30 @@ version: '3.8'
 secrets:
   openai_key:
     file: ./secrets/openai_key.txt
+  jwt_secret:
+    file: ./secrets/jwt_secret.txt
 
 services:
 
-  # ── 1. fraud-api: punto de entrada, coordina el análisis ──
+  # ── 1. auth-sso: autenticación SSO, emite y valida JWT ──────────────────────
+  auth-sso:
+    build:
+      context: ./auth-sso
+    ports:
+      - "8001:8001"          # Único servicio expuesto externamente en este puerto
+    networks:
+      - fraud-net
+    secrets:
+      - jwt_secret           # Secret compartido con fraud-api para validar tokens
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # ── 2. fraud-api: punto de entrada, coordina el análisis ──
   fraud-api:
     build:
       context: ./fraud-api
@@ -20,7 +40,11 @@ services:
     environment:
       - ANALYZER_URL=http://fraud-analyzer:8001
       - NOTIFIER_URL=http://fraud-notifier:8002
+    secrets:
+      - jwt_secret           # Mismo secret para verificar JWT localmente sin llamar a auth-sso
     depends_on:
+      auth-sso:
+        condition: service_healthy
       fraud-analyzer:
         condition: service_healthy
       fraud-notifier:
@@ -33,7 +57,7 @@ services:
       start_period: 15s
     restart: unless-stopped
 
-  # ── 2. fraud-analyzer: LangChain + GPT-4o ──
+  # ── 3. fraud-analyzer: LangChain + GPT-4o ──
   fraud-analyzer:
     build:
       context: ./fraud-analyzer
@@ -49,7 +73,7 @@ services:
       start_period: 15s
     restart: unless-stopped
 
-  # ── 3. fraud-notifier: alertas de fraude ──
+  # ── 4. fraud-notifier: alertas de fraude ──
   fraud-notifier:
     build:
       context: ./fraud-notifier
@@ -63,7 +87,7 @@ services:
       start_period: 15s
     restart: unless-stopped
 
-  # ── 4. n8n: orquestación visual del pipeline ──
+  # ── 5. n8n: orquestación visual del pipeline ──
   n8n:
     image: n8nio/n8n:latest
     ports:

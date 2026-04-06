@@ -1,0 +1,134 @@
+{
+  "info": {
+    "_postman_id": "8982220f-04bf-4d13-aa7a-394a3cc14cde",
+    "name": "TechStore Chile — Fraud Detection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "4776440"
+  },
+  "item": [
+    {
+      "name": "1. Obtener Token SSO",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Guardar el token automáticamente después del login",
+              "const response = pm.response.json();",
+              "",
+              "if (response.access_token) {",
+              "    pm.collectionVariables.set(\"access_token\", response.access_token);",
+              "    console.log(\"✅ Token guardado:\", response.access_token.substring(0, 50) + \"...\");",
+              "    console.log(\"Cliente:\", response.client_name);",
+              "    console.log(\"Expira en:\", response.expires_in, \"segundos\");",
+              "} else {",
+              "    console.log(\"❌ Error obteniendo token\");",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"client_id\": \"tienda-online\",\n  \"client_secret\": \"secret123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_sso}}/token",
+          "host": [
+            "{{base_url_sso}}"
+          ],
+          "path": [
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2. Analizar Transacción (con SSO)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"TXN-ECOMMERCE-001\",\n  \"rut_cliente\": \"12.345.678-9\",\n  \"comercio\": \"Comercio Desconocido\",\n  \"monto_clp\": 8500000,\n  \"tipo\": \"crédito\",\n  \"region\": \"Magallanes\",\n  \"hora\": \"02:30\",\n  \"canal\": \"web\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url_fraud}}/analizar",
+          "host": [
+            "{{base_url_fraud}}"
+          ],
+          "path": [
+            "analizar"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url_sso",
+      "value": ""
+    },
+    {
+      "key": "base_url_fraud",
+      "value": ""
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "disabled": true
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ]
+}
