@@ -17,42 +17,47 @@ Pipeline de **detección de fraude en tiempo real** para transacciones financier
 ## Arquitectura
 
 ```mermaid
-flowchart TD
-    subgraph EXTERNO["Cliente Externo"]
-        PM[("Postman /\nE-commerce")]
+sequenceDiagram
+    autonumber
+
+    participant E  as TechStore Chile<br/>(Postman / E-commerce)
+    participant SSO as auth-sso<br/>:8001
+    participant N8N as n8n<br/>:5678
+    participant API as fraud-api<br/>:8000
+    participant ANL as fraud-analyzer<br/>(GPT-4o)
+    participant SLK as Slack
+    participant EML as SendGrid Email
+
+    Note over E,SSO: Fase 1 — Autenticación SSO
+
+    E->>SSO: POST /token<br/>{ username, password }
+    SSO-->>E: 200 OK · { access_token: "eyJ...", expires_in: 1800 }
+
+    Note over E,N8N: Fase 2 — Ingreso de transacción
+
+    E->>N8N: POST /webhook-test/transaction<br/>Authorization: Bearer eyJ...<br/>{ id, rut_cliente, monto_clp, ... }
+
+    Note over N8N,ANL: Fase 3 — Validación y análisis
+
+    N8N->>API: POST /analizar<br/>Authorization: Bearer eyJ...<br/>{ transacción }
+    API->>SSO: GET /verify<br/>Authorization: Bearer eyJ...
+    SSO-->>API: 200 OK · { sub, exp, valid: true }
+    API->>ANL: POST /analizar interno<br/>{ transacción }
+    ANL-->>API: 200 OK · { risk_score: 94,<br/>risk_level: "CRITICAL",<br/>recommendation: "BLOCK" }
+    API-->>N8N: 200 OK · { analisis, alerta_enviada, timestamp }
+
+    Note over N8N,EML: Fase 4 — Notificación
+
+    alt risk_level = CRITICAL o HIGH
+        N8N->>SLK: POST webhook<br/>🚨 Fraude detectado · BLOCK · score 94
+        N8N->>EML: POST /send<br/>Alerta crítica a equipo de fraude
+    else risk_level = LOW o MEDIUM
+        N8N->>N8N: Registrar log interno<br/>✅ Transacción aprobada
     end
 
-    subgraph MICROSERVICIOS["Microservicios · Red interna fraud-net"]
-        direction TB
-        N8N["🔄 n8n\n:5678\nOrquestación visual"]
-        SSO["🔐 auth-sso\n:8001\nJWT · SSO"]
-        API["⚡ fraud-api\n:8000\nCoordinador"]
-        ANA["🤖 fraud-analyzer\n:8001 interno\nLangChain + GPT-4o"]
-        NOT["🔔 fraud-notifier\n:8002 interno\nAlertas"]
-    end
+    Note over N8N,E: Fase 5 — Respuesta al e-commerce
 
-    subgraph EXTERNOS["Servicios Externos"]
-        OAI["OpenAI API\nGPT-4o"]
-        SLK["Slack Webhook"]
-        EML["SendGrid\nEmail"]
-    end
-
-    PM -->|"POST /webhook/n8n\nBearer JWT"| N8N
-    N8N -->|"POST /token\ncredenciales"| SSO
-    SSO -->|"JWT firmado\nHS256"| N8N
-    N8N -->|"POST /analizar\nAuthorization: Bearer"| API
-    API -->|"Valida JWT\n(mismo secret)"| SSO
-    API -->|"POST /analizar\ntransacción"| ANA
-    ANA -->|"Prompt + datos"| OAI
-    OAI -->|"JSON risk_score"| ANA
-    ANA -->|"ResultadoAnalisis"| API
-    API -->|"HIGH / CRITICAL"| NOT
-    NOT -->|"Webhook"| SLK
-    NOT -->|"SMTP"| EML
-
-    style EXTERNO fill:#f0f4ff,stroke:#6366f1
-    style MICROSERVICIOS fill:#f0fdf4,stroke:#16a34a
-    style EXTERNOS fill:#fef3c7,stroke:#d97706
+    N8N-->>E: 200 OK · { recommendation: "BLOCK",<br/>risk_level: "CRITICAL",<br/>alerta_enviada: true }
 ```
 
 ---
