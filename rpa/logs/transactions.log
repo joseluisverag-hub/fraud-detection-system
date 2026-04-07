@@ -1,0 +1,169 @@
+2026-04-07 16:37:59 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:37:59 | INFO | 🚀 Inyector iniciado — Modo: TURBO (5s) | Corriendo indefinidamente
+2026-04-07 16:37:59 | INFO |    Webhook: http://localhost:5678/webhook-test/transaction
+2026-04-07 16:37:59 | INFO |    Auth SSO: http://localhost:8001/token
+2026-04-07 16:37:59 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:37:59 | INFO | 🔐 Renovando token SSO — cliente: tienda-online
+2026-04-07 16:37:59 | ERROR | ❌ Error al obtener token SSO: 422 Client Error: Unprocessable Entity for url: http://localhost:8001/token
+2026-04-07 16:37:59 | INFO | ✅ [16:37:59] TXN-9AECED | Tottus La Florida      |        $260.654 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:38:04 | INFO | ✅ [16:38:04] TXN-5CCFE3 | Santa Isabel Ñuñoa     |         $43.591 | NORMAL                    | Antofagasta               | → ERROR
+2026-04-07 16:38:09 | INFO | ✅ [16:38:09] TXN-7D7353 | Cornershop             |         $21.041 | NORMAL                    | Coquimbo                  | → ERROR
+2026-04-07 16:38:14 | INFO | ✅ [16:38:14] TXN-F86154 | Lider Quilicura        |         $15.605 | NORMAL                    | Maule                     | → ERROR
+2026-04-07 16:38:19 | INFO | ✅ [16:38:19] TXN-FE30F1 | McDonald's Providencia |         $54.606 | NORMAL                    | Antofagasta               | → ERROR
+2026-04-07 16:38:24 | INFO | 🚨 [16:38:24] TXN-85AB00 | Entel Centro           |        $318.658 | FRAUDE [rafaga]           | Biobío                    | → ERROR
+2026-04-07 16:38:32 | INFO | 🚨 [16:38:32] TXN-2C152C | Jumbo Apumanque        |        $220.831 | FRAUDE [rafaga]           | Biobío                    | → ERROR
+2026-04-07 16:38:41 | INFO | 🚨 [16:38:41] TXN-893A54 | Falabella              |        $202.187 | FRAUDE [rafaga]           | Biobío                    | → ERROR
+2026-04-07 16:38:46 | INFO | 🚨 [16:38:46] TXN-33D2CF | Petrobras Maipú        |      $8.863.859 | FRAUDE [monto_inusual]    | Los Lagos                 | → ERROR
+2026-04-07 16:38:51 | INFO | 🚨 [16:38:51] TXN-46835B | McDonald's Providencia |        $185.716 | FRAUDE [region_diferente] | Coquimbo                  | → ERROR
+2026-04-07 16:38:51 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:38:51 | INFO | 📊 RESUMEN | Total: 10 | Normales: 5 | Fraudulentas: 5 | Tasa: 50%
+2026-04-07 16:38:51 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:38:56 | INFO | ✅ [16:38:56] TXN-B15BEC | Farmacia Cruz Verde    |         $35.147 | NORMAL                    | Biobío                    | → ERROR
+2026-04-07 16:39:01 | INFO | ✅ [16:39:01] TXN-C6F883 | Copec Ruta 68          |        $330.300 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:39:06 | INFO | ✅ [16:39:06] TXN-93BFEF | Farmacia Cruz Verde    |         $34.481 | NORMAL                    | Los Lagos                 | → ERROR
+2026-04-07 16:39:11 | INFO | ✅ [16:39:11] TXN-809D76 | Cornershop             |         $71.929 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:39:16 | INFO | ✅ [16:39:16] TXN-2EA2F4 | Entel Centro           |         $41.383 | NORMAL                    | Los Lagos                 | → ERROR
+2026-04-07 16:39:21 | INFO | ✅ [16:39:21] TXN-27B696 | SMU Unimarc            |        $274.222 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:39:26 | INFO | ✅ [16:39:26] TXN-4C6D59 | Farmacia Ahumada       |        $472.879 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:39:26 | INFO | 
+⛔ Inyector detenido por el usuario.
+2026-04-07 16:39:26 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:39:26 | INFO | 📋 SESIÓN FINALIZADA
+2026-04-07 16:39:26 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:39:26 | INFO | 📊 RESUMEN | Total: 17 | Normales: 12 | Fraudulentas: 5 | Tasa: 29%
+2026-04-07 16:39:26 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:41:30 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:41:30 | INFO | 🚀 Inyector iniciado — Modo: TURBO (5s) | Corriendo indefinidamente
+2026-04-07 16:41:30 | INFO |    Webhook: http://localhost:5678/webhook-test/transaction
+2026-04-07 16:41:30 | INFO |    Auth SSO: http://localhost:8001/token
+2026-04-07 16:41:30 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:41:30 | INFO | 🔐 Renovando token SSO — cliente: tienda-online
+2026-04-07 16:41:30 | INFO | 🔐 Token obtenido correctamente para 'tienda-online'
+2026-04-07 16:41:30 | INFO | ✅ [16:41:30] TXN-D5DE6C | Paris Mall             |        $150.556 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:41:35 | INFO | ✅ [16:41:35] TXN-A70955 | Shell Pudahuel         |         $10.860 | NORMAL                    | Biobío                    | → ERROR
+2026-04-07 16:41:40 | INFO | ✅ [16:41:40] TXN-EB1A03 | Cornershop             |          $7.476 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:41:45 | INFO | 🚨 [16:41:45] TXN-774F1A | Easy Pudahuel          |         $24.947 | FRAUDE [region_diferente] | Aysén                     | → ERROR
+2026-04-07 16:41:50 | INFO | ✅ [16:41:50] TXN-BA2A12 | Entel Centro           |         $19.670 | NORMAL                    | La Araucanía              | → ERROR
+2026-04-07 16:41:55 | INFO | ✅ [16:41:55] TXN-80CDE9 | Copec Ruta 68          |          $5.498 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:42:00 | INFO | ✅ [16:42:00] TXN-B110FD | SMU Unimarc            |         $31.491 | NORMAL                    | La Araucanía              | → ERROR
+2026-04-07 16:42:05 | INFO | ✅ [16:42:05] TXN-AE94B0 | Sodimac Maipú          |        $170.932 | NORMAL                    | Antofagasta               | → ERROR
+2026-04-07 16:42:10 | INFO | ✅ [16:42:10] TXN-E9616B | Lider Quilicura        |         $46.142 | NORMAL                    | Maule                     | → ERROR
+2026-04-07 16:42:15 | INFO | ✅ [16:42:15] TXN-EEB725 | Jumbo Apumanque        |         $39.309 | NORMAL                    | Antofagasta               | → ERROR
+2026-04-07 16:42:15 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:42:15 | INFO | 📊 RESUMEN | Total: 10 | Normales: 9 | Fraudulentas: 1 | Tasa: 10%
+2026-04-07 16:42:15 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:42:20 | INFO | ✅ [16:42:20] TXN-3CF8FC | Sodimac Maipú          |         $51.453 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:42:27 | INFO | ✅ [16:42:27] TXN-BDB3B3 | Farmacia Cruz Verde    |         $34.213 | NORMAL                    | Antofagasta               | → OK
+2026-04-07 16:42:32 | INFO | 🚨 [16:42:32] TXN-0A92B9 | Easy Pudahuel          |         $63.805 | FRAUDE [region_diferente] | Tarapacá                  | → ERROR
+2026-04-07 16:42:37 | INFO | ✅ [16:42:37] TXN-C35482 | Farmacia Ahumada       |         $31.938 | NORMAL                    | Maule                     | → ERROR
+2026-04-07 16:42:42 | INFO | ✅ [16:42:42] TXN-DA3711 | Sodimac Maipú          |        $141.362 | NORMAL                    | Valparaíso                | → ERROR
+2026-04-07 16:42:47 | INFO | ✅ [16:42:47] TXN-6DC9B4 | Jumbo Apumanque        |         $60.302 | NORMAL                    | Antofagasta               | → ERROR
+2026-04-07 16:42:52 | INFO | ✅ [16:42:52] TXN-E03A65 | Cornershop             |         $67.438 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:42:59 | INFO | ✅ [16:42:59] TXN-2E7555 | Santa Isabel Ñuñoa     |         $19.260 | NORMAL                    | Antofagasta               | → OK
+2026-04-07 16:43:04 | INFO | ✅ [16:43:04] TXN-2A6C3F | Easy Pudahuel          |         $34.202 | NORMAL                    | La Araucanía              | → ERROR
+2026-04-07 16:43:09 | INFO | 🚨 [16:43:09] TXN-AD94F9 | McDonald's Providencia |      $5.951.395 | FRAUDE [monto_inusual]    | Antofagasta               | → ERROR
+2026-04-07 16:43:09 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:43:09 | INFO | 📊 RESUMEN | Total: 20 | Normales: 17 | Fraudulentas: 3 | Tasa: 15%
+2026-04-07 16:43:09 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:43:14 | INFO | ✅ [16:43:14] TXN-01D69C | Copec Ruta 68          |         $17.997 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:43:19 | INFO | ✅ [16:43:19] TXN-65455B | Easy Pudahuel          |          $5.957 | NORMAL                    | Maule                     | → ERROR
+2026-04-07 16:43:24 | INFO | ✅ [16:43:24] TXN-5AE3E5 | Lider Quilicura        |         $60.719 | NORMAL                    | Región Metropolitana      | → ERROR
+2026-04-07 16:43:29 | INFO | ✅ [16:43:29] TXN-76298A | Farmacia Cruz Verde    |         $65.502 | NORMAL                    | Los Lagos                 | → ERROR
+2026-04-07 16:43:34 | INFO | ✅ [16:43:34] TXN-BAD921 | Tottus La Florida      |         $39.783 | NORMAL                    | Los Lagos                 | → ERROR
+2026-04-07 16:43:37 | INFO | 
+⛔ Inyector detenido por el usuario.
+2026-04-07 16:43:37 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:43:37 | INFO | 📋 SESIÓN FINALIZADA
+2026-04-07 16:43:37 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:43:37 | INFO | 📊 RESUMEN | Total: 25 | Normales: 22 | Fraudulentas: 3 | Tasa: 12%
+2026-04-07 16:43:37 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:45:31 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:45:31 | INFO | 🚀 Inyector iniciado — Modo: TURBO (5s) | Corriendo indefinidamente
+2026-04-07 16:45:31 | INFO |    Webhook: http://localhost:5678/webhook/transaction
+2026-04-07 16:45:31 | INFO |    Auth SSO: http://localhost:8001/token
+2026-04-07 16:45:31 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:45:31 | INFO | 🔐 Renovando token SSO — cliente: tienda-online
+2026-04-07 16:45:31 | INFO | 🔐 Token obtenido correctamente para 'tienda-online'
+2026-04-07 16:45:34 | INFO | 🚨 [16:45:34] TXN-8D9E04 | Subway Las Condes      |         $36.397 | FRAUDE [region_diferente] | Atacama                   | → OK
+2026-04-07 16:45:41 | INFO | 🚨 [16:45:41] TXN-D8C886 | Ripley                 |         $26.285 | FRAUDE [horario_nocturno] | Valparaíso                | → OK
+2026-04-07 16:45:48 | INFO | ✅ [16:45:48] TXN-C60A24 | Paris Mall             |         $17.169 | NORMAL                    | Coquimbo                  | → OK
+2026-04-07 16:45:56 | INFO | 🚨 [16:45:56] TXN-1244F5 | Falabella              |      $7.440.117 | FRAUDE [monto_inusual]    | Biobío                    | → OK
+2026-04-07 16:46:04 | INFO | ✅ [16:46:04] TXN-978D30 | Cornershop             |         $33.454 | NORMAL                    | La Araucanía              | → OK
+2026-04-07 16:46:11 | INFO | ✅ [16:46:11] TXN-7F9CB7 | Cornershop             |         $58.698 | NORMAL                    | Los Lagos                 | → OK
+2026-04-07 16:46:19 | INFO | ✅ [16:46:19] TXN-FCCAB0 | Petrobras Maipú        |         $89.690 | NORMAL                    | Valparaíso                | → OK
+2026-04-07 16:46:26 | INFO | ✅ [16:46:26] TXN-375833 | McDonald's Providencia |         $25.524 | NORMAL                    | Los Lagos                 | → OK
+2026-04-07 16:46:32 | INFO | ✅ [16:46:32] TXN-B55118 | Farmacia Cruz Verde    |         $68.778 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:46:38 | INFO | ✅ [16:46:38] TXN-DC2CAF | SMU Unimarc            |         $49.269 | NORMAL                    | Valparaíso                | → OK
+2026-04-07 16:46:38 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:46:38 | INFO | 📊 RESUMEN | Total: 10 | Normales: 7 | Fraudulentas: 3 | Tasa: 30%
+2026-04-07 16:46:38 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:46:44 | INFO | 
+⛔ Inyector detenido por el usuario.
+2026-04-07 16:46:44 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:46:44 | INFO | 📋 SESIÓN FINALIZADA
+2026-04-07 16:46:44 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:46:44 | INFO | 📊 RESUMEN | Total: 10 | Normales: 7 | Fraudulentas: 3 | Tasa: 30%
+2026-04-07 16:46:44 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:51:35 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:51:35 | INFO | 🚀 Inyector iniciado — Modo: NORMAL (30s) | Corriendo hasta 20 transacciones
+2026-04-07 16:51:35 | INFO |    Webhook: http://localhost:5678/webhook/transaction
+2026-04-07 16:51:35 | INFO |    Auth SSO: http://localhost:8001/token
+2026-04-07 16:51:35 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:51:35 | INFO | 🔐 Renovando token SSO — cliente: tienda-online
+2026-04-07 16:51:35 | INFO | 🔐 Token obtenido correctamente para 'tienda-online'
+2026-04-07 16:51:36 | INFO | ✅ [16:51:36] TXN-8EE19B | Starbucks Kennedy      |          $8.446 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:52:02 | INFO | 
+⛔ Inyector detenido por el usuario.
+2026-04-07 16:52:02 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:52:02 | INFO | 📋 SESIÓN FINALIZADA
+2026-04-07 16:52:02 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:52:02 | INFO | 📊 RESUMEN | Total: 1 | Normales: 1 | Fraudulentas: 0 | Tasa: 0%
+2026-04-07 16:52:02 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:52:05 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:52:05 | INFO | 🚀 Inyector iniciado — Modo: TURBO (5s) | Corriendo indefinidamente
+2026-04-07 16:52:05 | INFO |    Webhook: http://localhost:5678/webhook/transaction
+2026-04-07 16:52:05 | INFO |    Auth SSO: http://localhost:8001/token
+2026-04-07 16:52:05 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:52:05 | INFO | 🔐 Renovando token SSO — cliente: tienda-online
+2026-04-07 16:52:05 | INFO | 🔐 Token obtenido correctamente para 'tienda-online'
+2026-04-07 16:52:07 | INFO | ✅ [16:52:07] TXN-4553CC | Shell Pudahuel         |         $20.368 | NORMAL                    | Coquimbo                  | → OK
+2026-04-07 16:52:13 | INFO | ✅ [16:52:13] TXN-C8DCF0 | Santa Isabel Ñuñoa     |         $32.067 | NORMAL                    | Biobío                    | → OK
+2026-04-07 16:52:20 | INFO | ✅ [16:52:20] TXN-5FF1D0 | Santa Isabel Ñuñoa     |         $76.840 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:52:27 | INFO | ✅ [16:52:27] TXN-A65053 | Tottus La Florida      |         $31.366 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:52:33 | INFO | ✅ [16:52:33] TXN-1B589F | Jumbo Apumanque        |        $192.313 | NORMAL                    | Antofagasta               | → OK
+2026-04-07 16:52:41 | INFO | 🚨 [16:52:41] TXN-BB2D40 | FastCash Anónimo       |      $3.381.341 | FRAUDE [comercio_desconocido] | Valparaíso                | → OK
+2026-04-07 16:52:48 | INFO | ✅ [16:52:48] TXN-54E17D | Falabella              |         $33.543 | NORMAL                    | La Araucanía              | → OK
+2026-04-07 16:52:54 | INFO | ✅ [16:52:54] TXN-FE9C12 | SMU Unimarc            |         $43.615 | NORMAL                    | Biobío                    | → OK
+2026-04-07 16:53:01 | INFO | 🚨 [16:53:01] TXN-3A5BDF | Sodimac Maipú          |         $17.508 | FRAUDE [region_diferente] | O'Higgins                 | → OK
+2026-04-07 16:53:08 | INFO | ✅ [16:53:08] TXN-9CCFCD | Farmacia Cruz Verde    |         $23.766 | NORMAL                    | Valparaíso                | → OK
+2026-04-07 16:53:08 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:53:08 | INFO | 📊 RESUMEN | Total: 10 | Normales: 8 | Fraudulentas: 2 | Tasa: 20%
+2026-04-07 16:53:08 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:53:14 | INFO | ✅ [16:53:14] TXN-F0E3F8 | Paris Mall             |         $34.080 | NORMAL                    | Biobío                    | → OK
+2026-04-07 16:53:21 | INFO | ✅ [16:53:21] TXN-D4128B | Entel Centro           |         $85.835 | NORMAL                    | Valparaíso                | → OK
+2026-04-07 16:53:28 | INFO | ✅ [16:53:28] TXN-C67EE4 | Lider Quilicura        |         $12.829 | NORMAL                    | La Araucanía              | → OK
+2026-04-07 16:53:35 | INFO | ✅ [16:53:35] TXN-F04904 | Cornershop             |        $111.678 | NORMAL                    | Valparaíso                | → OK
+2026-04-07 16:53:41 | INFO | ✅ [16:53:41] TXN-BFD433 | Paris Mall             |         $34.554 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:53:48 | INFO | 🚨 [16:53:48] TXN-D625B0 | Shell Pudahuel         |        $528.217 | FRAUDE [rafaga]           | Antofagasta               | → OK
+2026-04-07 16:53:55 | INFO | 🚨 [16:53:55] TXN-B5D759 | Paris Mall             |        $332.932 | FRAUDE [rafaga]           | Antofagasta               | → OK
+2026-04-07 16:54:05 | INFO | 🚨 [16:54:05] TXN-C3C90C | Farmacia Cruz Verde    |        $422.011 | FRAUDE [rafaga]           | Antofagasta               | → OK
+2026-04-07 16:54:12 | INFO | ✅ [16:54:12] TXN-F0831D | Lider Quilicura        |         $96.468 | NORMAL                    | Antofagasta               | → OK
+2026-04-07 16:54:18 | INFO | 🚨 [16:54:18] TXN-72391A | PaymentAnon Ltd        |      $1.474.856 | FRAUDE [comercio_desconocido] | Coquimbo                  | → OK
+2026-04-07 16:54:18 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:54:18 | INFO | 📊 RESUMEN | Total: 20 | Normales: 14 | Fraudulentas: 6 | Tasa: 30%
+2026-04-07 16:54:18 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:54:25 | INFO | ✅ [16:54:25] TXN-74919F | Jumbo Apumanque        |        $108.286 | NORMAL                    | Coquimbo                  | → OK
+2026-04-07 16:54:31 | INFO | ✅ [16:54:31] TXN-1067BC | Shell Pudahuel         |         $30.250 | NORMAL                    | La Araucanía              | → OK
+2026-04-07 16:54:38 | INFO | ✅ [16:54:38] TXN-D91326 | Subway Las Condes      |         $15.775 | NORMAL                    | Biobío                    | → OK
+2026-04-07 16:54:44 | INFO | ✅ [16:54:44] TXN-C695F2 | Entel Centro           |         $90.716 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:54:50 | INFO | ✅ [16:54:50] TXN-A07B8F | Farmacia Ahumada       |         $66.986 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:54:57 | INFO | 🚨 [16:54:57] TXN-980304 | Petrobras Maipú        |         $68.349 | FRAUDE [region_diferente] | La Araucanía              | → OK
+2026-04-07 16:55:05 | INFO | 🚨 [16:55:05] TXN-53E70C | Petrobras Maipú        |         $64.994 | FRAUDE [horario_nocturno] | Los Lagos                 | → OK
+2026-04-07 16:55:11 | INFO | ✅ [16:55:11] TXN-3B4AA0 | Petrobras Maipú        |        $230.868 | NORMAL                    | Región Metropolitana      | → OK
+2026-04-07 16:55:17 | INFO | 
+⛔ Inyector detenido por el usuario.
+2026-04-07 16:55:17 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:55:17 | INFO | 📋 SESIÓN FINALIZADA
+2026-04-07 16:55:17 | INFO | ────────────────────────────────────────────────────────────
+2026-04-07 16:55:17 | INFO | 📊 RESUMEN | Total: 28 | Normales: 20 | Fraudulentas: 8 | Tasa: 29%
+2026-04-07 16:55:17 | INFO | ────────────────────────────────────────────────────────────
